@@ -71,7 +71,112 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ===== PUBLICATIONS DATA =====
-    const publicationsData = [
+    const publicationsData = JSON.parse(localStorage.getItem('sitePublications')) || [
+        {
+            year: "2024",
+            type: "Journal",
+            title: "Real Time Anomaly Detection in Big Data",
+            subtitle: "Using scalable Machine Learning Techniques",
+            journal: "Advances in Nonlinear Variational Inequalities, Vol 27 No 4 (2024). ISSN: 1902-910X"
+        },
+        {
+            year: "2024",
+            type: "Journal",
+            title: "Content-aware Recommendation System",
+            subtitle: "For integrated temporal semantic review text over web of things",
+            journal: "Service Oriented Computing and Applications 2024"
+        },
+        {
+            year: "2024",
+            type: "Journal",
+            title: "Bio-Inspired EEG Signal Computing",
+            subtitle: "Using machine learning and Fuzzy Theory for Decision making in future-oriented Brain-Controlled Vehicles",
+            journal: "SLAS Technology"
+        },
+        {
+            year: "2024",
+            type: "Journal",
+            title: "Efficient key revocation in IoT",
+            subtitle: "With lattice-based cryptography",
+            journal: "Journal of Discrete Mathematical Sciences and Cryptography 2024"
+        },
+        {
+            year: "2024",
+            type: "Journal",
+            title: "Knowledge-based Deep Learning System",
+            subtitle: "For classifying Alzheimer's disease for multi-task learning",
+            journal: "CAAI Transactions on Intelligence Technology 2024"
+        },
+        {
+            year: "2024",
+            type: "Journal",
+            title: "The Diabacare Cloud",
+            subtitle: "Predicting diabetes using machine learning",
+            journal: "Acta Scientiarum – Technology 2024"
+        },
+        {
+            year: "2023",
+            type: "Journal",
+            title: "Security and Energy Efficient Cyber-Physical Systems",
+            subtitle: "Using predictive modeling approaches in Wireless Sensor Networks",
+            journal: "Wireless Networks (Springer IF3.0), 2023"
+        },
+        {
+            year: "2023",
+            type: "Journal",
+            title: "Hybrid Block-Based Lightweight Machine Learning",
+            subtitle: "Predictive Models for Quality Preserving in the Internet of Things",
+            journal: "Based Medical Images with Diagnostic Applications (SCI Indexed Impact Factor 4.4)"
+        },
+        {
+            year: "2023",
+            type: "Journal",
+            title: "Computational Intelligence and Neuroscience",
+            subtitle: "Hindawi, April 12, 2022, Volume 2022",
+            journal: "Article ID 8173372"
+        },
+        {
+            year: "2022",
+            type: "Journal",
+            title: "Optimal Design of Intelligent Control System",
+            subtitle: "In the Communication Room Based on Artificial Intelligence",
+            journal: "(SCI Indexed), Hindawi Wireless Communications and Mobile Computing, Volume 2022"
+        },
+        {
+            year: "2022",
+            type: "Journal",
+            title: "Hybrid Multi-Criteria Long Data",
+            subtitle: "Fusion-Based Medical Decision Learning Patterns",
+            journal: "(Scopus Indexed), Manish Gupta, Ihtiram Raza Khan, B Gomathy and Ansuman Samal ECS Transactions"
+        },
+        {
+            year: "2022",
+            type: "Journal",
+            title: "Data Mining in Employee Healthcare Detection",
+            subtitle: "Using Intelligence Techniques for Industry Development",
+            journal: "(SCI Indexed Impact Factor 2.682), Hindawi Journal of Healthcare Engineering"
+        },
+        {
+            year: "2021",
+            type: "Journal",
+            title: "Detection of Emotion of Speech for RAYDESS Audio",
+            subtitle: "Using Hybrid Convolution Neural Network in 5G Indexed Impact Factor 2.682)",
+            journal: "Hindawi Journal- Intelligence Systems in E-Health and Medical Communication Services"
+        },
+        {
+            year: "2021",
+            type: "Journal",
+            title: "Multidimensional CNN Model for Biomedical Entity Reorganization",
+            subtitle: "(SCI Indexed Impact Factor 3.41) Hindawi BioMed Research International",
+            journal: "Volume 2022"
+        },
+        {
+            year: "2021",
+            type: "Conference",
+            title: "Deep Learning Based Patient-Friendly Clinical Expert",
+            subtitle: "Recommendation Framework (IEEE Scopus)",
+            journal: "Akhilesh Kumar, Sarfraz Fayaz Khan, Rajinder Singh Sodhi, Ihtiram Raza Khan"
+        }
         {
             year: "2024",
             type: "Journal",
@@ -179,8 +284,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     ];
 
+    // ===== EVENTS DATA =====
+    const eventsData = JSON.parse(localStorage.getItem('siteEvents')) || [
+        {
+            title: "International Conference on Machine Learning",
+            description: "Keynote speaker on AI applications in healthcare systems",
+            date: "15 March 2024",
+            location: "New Delhi, India",
+            type: "Conference"
+        },
+        {
+            title: "Workshop on Big Data Analytics",
+            description: "Conducting hands-on workshop on data processing techniques",
+            date: "22 February 2024",
+            location: "Jamia Hamdard",
+            type: "Workshop"
+        },
+        {
+            title: "IEEE Symposium on IoT Security",
+            description: "Presenting research on secure IoT frameworks",
+            date: "10 January 2024",
+            location: "Mumbai, India",
+            type: "Symposium"
+        }
+    ];
+
     // ===== PATENTS DATA =====
-    const patentsData = [
+    const patentsData = JSON.parse(localStorage.getItem('sitePatents')) || [
         {
             patentNo: "202110143",
             title: "Computer - implemented method for encryption over a blockchain data sharing in secure network",
@@ -507,7 +637,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ===== SCROLL ANIMATIONS =====
     function animateOnScroll() {
-        const elements = document.querySelectorAll('.expertise-item, .timeline-item, .research-card, .publication-card, .patent-card');
+        const elements = document.querySelectorAll('.expertise-item, .timeline-item, .research-card, .publication-card, .patent-card, .event-card');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -560,9 +690,71 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ===== POPULATE EVENTS =====
+    function populateEvents() {
+        const eventsGrid = document.getElementById('events-grid');
+        if (!eventsGrid) return;
+
+        const initialCount = 6;
+        let currentCount = initialCount;
+
+        function renderEvents(count = currentCount) {
+            eventsGrid.innerHTML = '';
+            const eventsToShow = eventsData.slice(0, count);
+
+            eventsToShow.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+
+                let icon = 'fas fa-calendar';
+                if (event.type === 'Conference') icon = 'fas fa-users';
+                else if (event.type === 'Workshop') icon = 'fas fa-tools';
+                else if (event.type === 'Seminar') icon = 'fas fa-chalkboard-teacher';
+                else if (event.type === 'Webinar') icon = 'fas fa-video';
+
+                eventCard.innerHTML = `
+                    <div class="event-icon">
+                        <i class="${icon}"></i>
+                    </div>
+                    <h3>${event.title}</h3>
+                    <p class="event-description">${event.description}</p>
+                    <div class="event-meta">
+                        <span class="event-date"><i class="fas fa-calendar-alt"></i> ${event.date}</span>
+                        <span class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                        <span class="event-type">${event.type}</span>
+                    </div>
+                `;
+
+                eventsGrid.appendChild(eventCard);
+            });
+        }
+
+        renderEvents();
+
+        const loadMoreBtn = document.getElementById('load-more-events');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function () {
+                if (currentCount >= eventsData.length) {
+                    this.innerHTML = '<i class="fas fa-check"></i> All Events Loaded';
+                    this.disabled = true;
+                    return;
+                }
+
+                currentCount = Math.min(currentCount + 6, eventsData.length);
+                renderEvents(currentCount);
+
+                if (currentCount >= eventsData.length) {
+                    this.innerHTML = '<i class="fas fa-check"></i> All Events Loaded';
+                    this.disabled = true;
+                }
+            });
+        }
+    }
+
     // ===== INITIALIZE EVERYTHING =====
     populatePublications();
     populatePatents();
+    populateEvents();
     animateOnScroll();
     animateCounters();
 

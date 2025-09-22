@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Dr. Ihtiram Raza Khan</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <nav class="admin-nav">
+            <div class="admin-brand">
+                <i class="fas fa-user-shield"></i>
+                Admin Panel
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="window.open('index.html', '_blank')">
+                    <i class="fas fa-eye"></i> View Site
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <div class="admin-content">
+            <div class="admin-sidebar">
+                <ul class="admin-menu">
+                    <li><a href="#publications" class="menu-item active" data-section="publications">
+                        <i class="fas fa-book"></i> Publications
+                    </a></li>
+                    <li><a href="#patents" class="menu-item" data-section="patents">
+                        <i class="fas fa-lightbulb"></i> Patents
+                    </a></li>
+                    <li><a href="#events" class="menu-item" data-section="events">
+                        <i class="fas fa-calendar"></i> Events
+                    </a></li>
+                </ul>
+            </div>
+
+            <div class="admin-main">
+                <!-- Publications Section -->
+                <div id="publications-section" class="admin-section active">
+                    <div class="section-header">
+                        <h2>Manage Publications</h2>
+                        <button class="btn btn-primary" onclick="openAddModal('publication')">
+                            <i class="fas fa-plus"></i> Add Publication
+                        </button>
+                    </div>
+                    <div class="content-grid" id="publications-grid"></div>
+                </div>
+
+                <!-- Patents Section -->
+                <div id="patents-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Manage Patents</h2>
+                        <button class="btn btn-primary" onclick="openAddModal('patent')">
+                            <i class="fas fa-plus"></i> Add Patent
+                        </button>
+                    </div>
+                    <div class="content-grid" id="patents-grid"></div>
+                </div>
+
+                <!-- Events Section -->
+                <div id="events-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Manage Events</h2>
+                        <button class="btn btn-primary" onclick="openAddModal('event')">
+                            <i class="fas fa-plus"></i> Add Event
+                        </button>
+                    </div>
+                    <div class="content-grid" id="events-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Item</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="item-form">
+                <div id="form-fields"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
