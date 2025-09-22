@@ -1701,4 +1701,332 @@ section {
 
 .text-center {
     text-align: center;
+}/
+* ===== DROPDOWN FUNCTIONALITY FOR ITEMS > 6 ===== */
+.hidden-item {
+    display: none !important;
+}
+
+.show-more-btn, .show-less-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    margin: 1rem auto;
+    display: block;
+    transition: all var(--transition-normal);
+}
+
+.show-more-btn:hover, .show-less-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* ===== RESEARCH FILTER STYLES ===== */
+.research-filter {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.research-filter .filter-btn {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+}
+
+.research-filter .filter-btn:hover,
+.research-filter .filter-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ===== RESEARCH TOPICS TAGS ===== */
+.research-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.topic-tag {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+/* ===== RESEARCH STATISTICS ===== */
+.research-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+    padding: 2rem 0;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-content h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.stat-content p {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== PATENT META STYLING ===== */
+.patent-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.patent-number {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ===== LIGHT THEME UPDATES ===== */
+.research-section {
+    background: var(--bg-section-alt);
+}
+
+.publications-section {
+    background: var(--bg-primary);
+}
+
+.patents-section {
+    background: var(--bg-section-alt);
+}
+
+.events-section {
+    background: var(--bg-primary);
+}
+
+/* ===== ENHANCED CARD STYLING FOR LIGHT THEME ===== */
+.research-card,
+.publication-card,
+.patent-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.research-card:hover,
+.publication-card:hover,
+.patent-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+/* ===== NAVIGATION UPDATES FOR LIGHT THEME ===== */
+.nav-brand {
+    color: var(--text-primary);
+}
+
+.nav-link {
+    color: var(--text-secondary);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+/* ===== HERO SECTION LIGHT THEME ===== */
+.hero-section {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.title-line {
+    color: var(--text-primary);
+}
+
+.title-subtitle {
+    color: var(--primary-color);
+}
+
+.hero-description {
+    color: var(--text-secondary);
+}
+
+/* ===== ABOUT SECTION LIGHT THEME ===== */
+.about-section {
+    background: var(--bg-section-alt);
+}
+
+.about-description {
+    color: var(--text-secondary);
+}
+
+.expertise-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+.expertise-item h4 {
+    color: var(--text-primary);
+}
+
+.expertise-item p {
+    color: var(--text-muted);
+}
+
+/* ===== TIMELINE LIGHT THEME ===== */
+.timeline::before {
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+}
+
+.timeline-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+.timeline-item h3 {
+    color: var(--text-primary);
+}
+
+.timeline-item h4 {
+    color: var(--text-accent);
+}
+
+.timeline-item p {
+    color: var(--text-secondary);
+}
+
+/* ===== CONTACT SECTION LIGHT THEME ===== */
+.contact-section {
+    background: var(--bg-section-alt);
+}
+
+.contact-card-large,
+.contact-form-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+.contact-item-large:hover {
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-bottom-color: var(--primary-color);
+}
+
+.form-group label {
+    color: var(--text-muted);
+}
+
+/* ===== FOOTER LIGHT THEME ===== */
+.footer {
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-text p {
+    color: var(--text-muted);
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+/* ===== RESPONSIVE UPDATES ===== */
+@media (max-width: 768px) {
+    .research-filter,
+    .publications-filter {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .research-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .topic-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .research-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-content h4 {
+        font-size: 1.5rem;
+    }
+    
+    .research-topics {
+        justify-content: center;
+    }
 }

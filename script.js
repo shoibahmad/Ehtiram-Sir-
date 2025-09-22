@@ -1,6 +1,13 @@
 // ===== ACADEMIC PORTFOLIO INTERACTIVE FEATURES =====
 
-document.addEventListener('DOMContentLoaded', function () {
+// Ensure DOM is fully loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePortfolio);
+} else {
+    initializePortfolio();
+}
+
+function initializePortfolio() {
 
     // ===== NAVIGATION =====
     const navbar = document.querySelector('.navbar');
@@ -72,111 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ===== PUBLICATIONS DATA =====
     const publicationsData = JSON.parse(localStorage.getItem('sitePublications')) || [
-        {
-            year: "2024",
-            type: "Journal",
-            title: "Real Time Anomaly Detection in Big Data",
-            subtitle: "Using scalable Machine Learning Techniques",
-            journal: "Advances in Nonlinear Variational Inequalities, Vol 27 No 4 (2024). ISSN: 1902-910X"
-        },
-        {
-            year: "2024",
-            type: "Journal",
-            title: "Content-aware Recommendation System",
-            subtitle: "For integrated temporal semantic review text over web of things",
-            journal: "Service Oriented Computing and Applications 2024"
-        },
-        {
-            year: "2024",
-            type: "Journal",
-            title: "Bio-Inspired EEG Signal Computing",
-            subtitle: "Using machine learning and Fuzzy Theory for Decision making in future-oriented Brain-Controlled Vehicles",
-            journal: "SLAS Technology"
-        },
-        {
-            year: "2024",
-            type: "Journal",
-            title: "Efficient key revocation in IoT",
-            subtitle: "With lattice-based cryptography",
-            journal: "Journal of Discrete Mathematical Sciences and Cryptography 2024"
-        },
-        {
-            year: "2024",
-            type: "Journal",
-            title: "Knowledge-based Deep Learning System",
-            subtitle: "For classifying Alzheimer's disease for multi-task learning",
-            journal: "CAAI Transactions on Intelligence Technology 2024"
-        },
-        {
-            year: "2024",
-            type: "Journal",
-            title: "The Diabacare Cloud",
-            subtitle: "Predicting diabetes using machine learning",
-            journal: "Acta Scientiarum – Technology 2024"
-        },
-        {
-            year: "2023",
-            type: "Journal",
-            title: "Security and Energy Efficient Cyber-Physical Systems",
-            subtitle: "Using predictive modeling approaches in Wireless Sensor Networks",
-            journal: "Wireless Networks (Springer IF3.0), 2023"
-        },
-        {
-            year: "2023",
-            type: "Journal",
-            title: "Hybrid Block-Based Lightweight Machine Learning",
-            subtitle: "Predictive Models for Quality Preserving in the Internet of Things",
-            journal: "Based Medical Images with Diagnostic Applications (SCI Indexed Impact Factor 4.4)"
-        },
-        {
-            year: "2023",
-            type: "Journal",
-            title: "Computational Intelligence and Neuroscience",
-            subtitle: "Hindawi, April 12, 2022, Volume 2022",
-            journal: "Article ID 8173372"
-        },
-        {
-            year: "2022",
-            type: "Journal",
-            title: "Optimal Design of Intelligent Control System",
-            subtitle: "In the Communication Room Based on Artificial Intelligence",
-            journal: "(SCI Indexed), Hindawi Wireless Communications and Mobile Computing, Volume 2022"
-        },
-        {
-            year: "2022",
-            type: "Journal",
-            title: "Hybrid Multi-Criteria Long Data",
-            subtitle: "Fusion-Based Medical Decision Learning Patterns",
-            journal: "(Scopus Indexed), Manish Gupta, Ihtiram Raza Khan, B Gomathy and Ansuman Samal ECS Transactions"
-        },
-        {
-            year: "2022",
-            type: "Journal",
-            title: "Data Mining in Employee Healthcare Detection",
-            subtitle: "Using Intelligence Techniques for Industry Development",
-            journal: "(SCI Indexed Impact Factor 2.682), Hindawi Journal of Healthcare Engineering"
-        },
-        {
-            year: "2021",
-            type: "Journal",
-            title: "Detection of Emotion of Speech for RAYDESS Audio",
-            subtitle: "Using Hybrid Convolution Neural Network in 5G Indexed Impact Factor 2.682)",
-            journal: "Hindawi Journal- Intelligence Systems in E-Health and Medical Communication Services"
-        },
-        {
-            year: "2021",
-            type: "Journal",
-            title: "Multidimensional CNN Model for Biomedical Entity Reorganization",
-            subtitle: "(SCI Indexed Impact Factor 3.41) Hindawi BioMed Research International",
-            journal: "Volume 2022"
-        },
-        {
-            year: "2021",
-            type: "Conference",
-            title: "Deep Learning Based Patient-Friendly Clinical Expert",
-            subtitle: "Recommendation Framework (IEEE Scopus)",
-            journal: "Akhilesh Kumar, Sarfraz Fayaz Khan, Rajinder Singh Sodhi, Ihtiram Raza Khan"
-        }
         {
             year: "2024",
             type: "Journal",
@@ -390,7 +292,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const publicationsGrid = document.getElementById('publications-grid');
         if (!publicationsGrid) return;
 
-        // Show only first 6 publications initially
         const initialCount = 6;
         let currentCount = initialCount;
         let currentFilter = 'all';
@@ -429,7 +330,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 publicationsGrid.appendChild(publicationCard);
             });
 
-            // Update load more button visibility
             updateLoadMoreButton();
         }
 
@@ -464,10 +364,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Initial render
         renderPublications();
 
-        // Load more functionality
         const loadMoreBtn = document.getElementById('load-more-publications');
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', function () {
@@ -484,19 +382,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Filter functionality
         const filterButtons = document.querySelectorAll('.filter-btn');
         filterButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const filter = this.getAttribute('data-filter');
                 currentFilter = filter;
-                currentCount = initialCount; // Reset count when filtering
+                currentCount = initialCount;
 
-                // Update active button
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
 
-                // Re-render publications with new filter
                 renderPublications();
             });
         });
@@ -507,7 +402,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const patentsGrid = document.getElementById('patents-grid');
         if (!patentsGrid) return;
 
-        // Show only first 6 patents initially
         const initialCount = 6;
         let currentCount = initialCount;
 
@@ -519,7 +413,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const patentCard = document.createElement('div');
                 patentCard.className = 'patent-card';
 
-                // Determine icon based on patent type
                 let icon = 'fas fa-lock';
                 if (patent.title.toLowerCase().includes('medical') || patent.title.toLowerCase().includes('health')) {
                     icon = 'fas fa-heartbeat';
@@ -547,10 +440,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Initial render
         renderPatents();
 
-        // Load more functionality
         const loadMoreBtn = document.getElementById('load-more-patents');
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', function () {
@@ -569,125 +460,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
-    }
-
-    // ===== CONTACT FORM =====
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-
-            // Simple validation
-            if (!name || !email || !subject || !message) {
-                alert('Please fill in all fields');
-                return;
-            }
-
-            // Simulate form submission
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-
-            setTimeout(() => {
-                alert('Thank you for your message! I will get back to you soon.');
-                contactForm.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-
-                // Reset form labels
-                const labels = contactForm.querySelectorAll('label');
-                labels.forEach(label => {
-                    label.style.transform = 'translateY(0) scale(1)';
-                    label.style.color = 'var(--text-muted)';
-                });
-            }, 2000);
-        });
-    }
-
-    // ===== FORM LABEL ANIMATIONS =====
-    const formInputs = document.querySelectorAll('.form-group input, .form-group textarea');
-    formInputs.forEach(input => {
-        input.addEventListener('focus', function () {
-            const label = this.nextElementSibling;
-            if (label) {
-                label.style.transform = 'translateY(-1.5rem) scale(0.8)';
-                label.style.color = 'var(--primary-color)';
-            }
-        });
-
-        input.addEventListener('blur', function () {
-            if (!this.value) {
-                const label = this.nextElementSibling;
-                if (label) {
-                    label.style.transform = 'translateY(0) scale(1)';
-                    label.style.color = 'var(--text-muted)';
-                }
-            }
-        });
-    });
-
-    // ===== SCROLL ANIMATIONS =====
-    function animateOnScroll() {
-        const elements = document.querySelectorAll('.expertise-item, .timeline-item, .research-card, .publication-card, .patent-card, .event-card');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        elements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(element);
-        });
-    }
-
-    // ===== COUNTER ANIMATION FOR STATS =====
-    function animateCounters() {
-        const statNumbers = document.querySelectorAll('.stat-number');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.textContent);
-                    let current = 0;
-                    const increment = target / 50;
-
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            entry.target.textContent = target + '+';
-                            clearInterval(timer);
-                        } else {
-                            entry.target.textContent = Math.floor(current) + '+';
-                        }
-                    }, 50);
-
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
-
-        statNumbers.forEach(stat => {
-            observer.observe(stat);
-        });
     }
 
     // ===== POPULATE EVENTS =====
@@ -751,18 +523,285 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // ===== CONTACT FORM =====
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+
+                const labels = contactForm.querySelectorAll('label');
+                labels.forEach(label => {
+                    label.style.transform = 'translateY(0) scale(1)';
+                    label.style.color = 'var(--text-muted)';
+                });
+            }, 2000);
+        });
+    }
+
+    // ===== FORM LABEL ANIMATIONS =====
+    const formInputs = document.querySelectorAll('.form-group input, .form-group textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('focus', function () {
+            const label = this.nextElementSibling;
+            if (label) {
+                label.style.transform = 'translateY(-1.5rem) scale(0.8)';
+                label.style.color = 'var(--primary-color)';
+            }
+        });
+
+        input.addEventListener('blur', function () {
+            if (!this.value) {
+                const label = this.nextElementSibling;
+                if (label) {
+                    label.style.transform = 'translateY(0) scale(1)';
+                    label.style.color = 'var(--text-muted)';
+                }
+            }
+        });
+    });
+
+    // ===== SCROLL ANIMATIONS =====
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.expertise-item, .timeline-item, .research-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        elements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    }
+
+    // ===== COUNTER ANIMATION FOR STATS =====
+    function animateCounters() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.textContent);
+                    let current = 0;
+                    const increment = target / 50;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            entry.target.textContent = target + '+';
+                            clearInterval(timer);
+                        } else {
+                            entry.target.textContent = Math.floor(current) + '+';
+                        }
+                    }, 50);
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        statNumbers.forEach(stat => {
+            observer.observe(stat);
+        });
+    }
+
     // ===== INITIALIZE EVERYTHING =====
-    populatePublications();
-    populatePatents();
-    populateEvents();
+    try {
+        populatePublications();
+        console.log('Publications populated');
+    } catch (error) {
+        console.error('Error populating publications:', error);
+    }
+    
+    try {
+        populatePatents();
+        console.log('Patents populated');
+    } catch (error) {
+        console.error('Error populating patents:', error);
+    }
+    
+    try {
+        populateEvents();
+        console.log('Events populated');
+    } catch (error) {
+        console.error('Error populating events:', error);
+    }
+    
     animateOnScroll();
     animateCounters();
 
+    // ===== DROPDOWN FUNCTIONALITY FOR ITEMS > 6 =====
+    function initializeDropdowns() {
+        // Publications dropdown
+        initializeDropdown('publications', '.publication-card', 6);
+        
+        // Patents dropdown
+        initializeDropdown('patents', '.patent-card', 6);
+    }
+
+    function initializeDropdown(sectionName, cardSelector, visibleCount) {
+        const cards = document.querySelectorAll(cardSelector);
+        const container = document.querySelector(`#${sectionName}-grid`) || document.querySelector(`.${sectionName}-grid`);
+        
+        if (cards.length > visibleCount && container) {
+            // Hide items beyond the visible count
+            cards.forEach((card, index) => {
+                if (index >= visibleCount) {
+                    card.classList.add('hidden-item');
+                }
+            });
+            
+            // Update existing load more button
+            let showMoreBtn = document.querySelector(`#load-more-${sectionName}`);
+            if (showMoreBtn) {
+                showMoreBtn.innerHTML = `<i class="fas fa-chevron-down"></i> Show More ${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}`;
+                showMoreBtn.setAttribute('data-section', sectionName);
+                
+                // Add click event
+                showMoreBtn.addEventListener('click', function() {
+                    toggleDropdown(sectionName, cardSelector);
+                });
+            }
+        }
+    }
+
+    function toggleDropdown(sectionName, cardSelector) {
+        const cards = document.querySelectorAll(cardSelector);
+        const hiddenCards = document.querySelectorAll(`${cardSelector}.hidden-item`);
+        const showMoreBtn = document.querySelector(`#load-more-${sectionName}`);
+        
+        if (hiddenCards.length > 0) {
+            // Show hidden items
+            hiddenCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.remove('hidden-item');
+                    card.style.animation = 'fadeInUp 0.5s ease forwards';
+                }, index * 100);
+            });
+            
+            // Update button
+            if (showMoreBtn) {
+                showMoreBtn.innerHTML = `<i class="fas fa-chevron-up"></i> Show Less ${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}`;
+            }
+        } else {
+            // Hide items beyond visible count
+            cards.forEach((card, index) => {
+                if (index >= 6) {
+                    card.classList.add('hidden-item');
+                }
+            });
+            
+            // Update button
+            if (showMoreBtn) {
+                showMoreBtn.innerHTML = `<i class="fas fa-chevron-down"></i> Show More ${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}`;
+            }
+        }
+    }
+
+    // ===== PUBLICATIONS FILTER =====
+    const publicationsFilterButtons = document.querySelectorAll('.publications-filter .filter-btn');
+    const publicationCards = document.querySelectorAll('.publication-card');
+
+    publicationsFilterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            publicationsFilterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter publications
+            publicationCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                    card.classList.remove('hidden-item');
+                    card.style.animation = 'fadeInUp 0.5s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Reset load more button
+            const loadMoreBtn = document.querySelector('#load-more-publications');
+            if (loadMoreBtn) {
+                loadMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Show More Publications';
+            }
+        });
+    });
+
+    // ===== RESEARCH FILTER =====
+    const researchFilterButtons = document.querySelectorAll('.research-filter .filter-btn');
+    const researchCards = document.querySelectorAll('.research-card');
+
+    researchFilterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            researchFilterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter research cards
+            researchCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.5s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Initialize dropdowns after DOM is loaded
+    initializeDropdowns();
+
     console.log('🎓 Academic Portfolio Loaded Successfully!');
-    console.log('📚 Publications and Patents populated with dropdown functionality');
-    console.log('🎨 Light theme with responsive design active');
-    console.log('🔍 Filter options working for publications');
-});
+    console.log('📊 Dropdown functionality initialized for sections with >6 items');
+    console.log('🔍 Filter functionality active for research and publications');
+    
+    // Debug: Check if elements exist
+    console.log('Publications grid:', document.getElementById('publications-grid'));
+    console.log('Patents grid:', document.getElementById('patents-grid'));
+    console.log('Events grid:', document.getElementById('events-grid'));
+}
 
 // ===== UTILITY FUNCTIONS =====
 function throttle(func, limit) {
@@ -778,7 +817,6 @@ function throttle(func, limit) {
     }
 }
 
-// Apply throttling to scroll events for better performance
 window.addEventListener('scroll', throttle(function () {
     // Scroll-based animations can be added here
-}, 16)); // ~60fps
+}, 16));
