@@ -79,6 +79,45 @@
             z-index: 2;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             animation: textPulse 2s ease-in-out infinite;
+            padding: 0 1rem;
+        }
+
+        /* Mobile responsive loading screen */
+        @media (max-width: 768px) {
+            .loading-logo svg {
+                width: 80px;
+                height: 80px;
+            }
+
+            .loading-spinner {
+                width: 40px;
+                height: 40px;
+                border-width: 3px;
+            }
+
+            .loading-text {
+                font-size: 1rem;
+                padding: 0 2rem;
+            }
+
+            .loading-progress {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-logo svg {
+                width: 60px;
+                height: 60px;
+            }
+
+            .loading-text {
+                font-size: 0.9rem;
+            }
+
+            .loading-progress {
+                width: 200px;
+            }
         }
 
         @keyframes logoFloat {
@@ -154,6 +193,68 @@
                 width: 100%;
             }
         }
+
+        /* Desktop Layout Fixes */
+        @media (min-width: 1024px) {
+            .hero-stats {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 2rem !important;
+                margin-bottom: 3rem !important;
+            }
+            
+            .stat-item {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                padding: 2rem 1.5rem !important;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem !important;
+                display: block !important;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem !important;
+                display: block !important;
+            }
+        }
+        
+        /* Critical Mobile Fixes */
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .timeline-container {
+                padding: 0 1rem !important;
+            }
+            
+            .timeline {
+                padding-left: 1rem !important;
+            }
+            
+            .timeline-item {
+                margin-left: 0 !important;
+                padding: 1.5rem !important;
+            }
+            
+            .timeline-dot {
+                left: -1.5rem !important;
+            }
+        }
     </style>
 </head>
 
@@ -197,54 +298,33 @@
         </div>
     </div>
 
-    <!-- Professional Navigation -->
-    <nav class="navbar"></nav>
-    <div class="nav-container">
-        <div class="nav-brand">
-            <svg width="40" height="40" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"
-                style="margin-right: 10px;">
-                <!-- Outer Circle -->
-                <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3" />
-
-                <!-- Academic Cap -->
-                <path
-                    d="M30 45 L60 35 L90 45 L90 55 L85 57 L85 70 C85 75 75 80 60 80 C45 80 35 75 35 70 L35 57 L30 55 Z"
-                    fill="currentColor" opacity="0.8" />
-
-                <!-- Cap Tassel -->
-                <circle cx="85" cy="57" r="3" fill="currentColor" />
-                <line x1="85" y1="60" x2="88" y2="68" stroke="currentColor" stroke-width="2" />
-                <circle cx="88" cy="68" r="2" fill="currentColor" />
-
-                <!-- Brain/AI Symbol -->
-                <path d="M45 50 Q50 45 55 50 Q60 45 65 50 Q70 55 65 60 Q60 65 55 60 Q50 65 45 60 Q40 55 45 50"
-                    fill="none" stroke="currentColor" stroke-width="2" opacity="0.6" />
-
-                <!-- Circuit Lines -->
-                <line x1="40" y1="65" x2="50" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
-                <line x1="70" y1="65" x2="80" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
-                <circle cx="42" cy="65" r="1.5" fill="currentColor" opacity="0.4" />
-                <circle cx="78" cy="65" r="1.5" fill="currentColor" opacity="0.4" />
-            </svg>
-
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <span class="brand-text">Dr. IRK</span>
+                    <div class="brand-dot"></div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#research" class="nav-link">Research</a></li>
+                <li><a href="#publications" class="nav-link">Publications</a></li>
+                <li><a href="#patents" class="nav-link">Patents</a></li>
+                <li><a href="#events" class="nav-link">Events</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <ul class="nav-menu">
-            <li><a href="#home" class="nav-link">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
-            <li><a href="#research" class="nav-link">Research</a></li>
-            <li><a href="#publications" class="nav-link">Publications</a></li>
-            <li><a href="#patents" class="nav-link">Patents</a></li>
-            <li><a href="#events" class="nav-link">Events</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
     </nav>
+
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
