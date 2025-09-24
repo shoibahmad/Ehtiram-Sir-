@@ -5,34 +5,245 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Ihtiram Raza Khan - Academic Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0891b2 0%, #14b8a6 30%, #f59e0b 70%, #ff6b6b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            overflow: hidden;
+        }
+
+        .loading-screen::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            margin-bottom: 2rem;
+            animation: logoFloat 3s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loading-logo svg {
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 500;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(-15px) scale(1.05);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes textPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes backgroundMove {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, white, rgba(255, 255, 255, 0.8));
+            border-radius: 2px;
+            animation: progressLoad 2.5s ease-out forwards;
+        }
+
+        @keyframes progressLoad {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Professional Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">Dr. IRK</div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#research" class="nav-link">Research</a></li>
-                <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#patents" class="nav-link">Patents</a></li>
-                <li><a href="#events" class="nav-link">Events</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer Circle -->
+                <circle cx="60" cy="60" r="55" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+
+                <!-- Academic Cap -->
+                <path
+                    d="M30 45 L60 35 L90 45 L90 55 L85 57 L85 70 C85 75 75 80 60 80 C45 80 35 75 35 70 L35 57 L30 55 Z"
+                    fill="white" opacity="0.9" />
+
+                <!-- Cap Tassel -->
+                <circle cx="85" cy="57" r="3" fill="white" />
+                <line x1="85" y1="60" x2="88" y2="68" stroke="white" stroke-width="2" />
+                <circle cx="88" cy="68" r="2" fill="white" />
+
+                <!-- Brain/AI Symbol -->
+                <path d="M45 50 Q50 45 55 50 Q60 45 65 50 Q70 55 65 60 Q60 65 55 60 Q50 65 45 60 Q40 55 45 50"
+                    fill="none" stroke="white" stroke-width="2" opacity="0.8" />
+
+                <!-- Circuit Lines -->
+                <line x1="40" y1="65" x2="50" y2="65" stroke="white" stroke-width="1.5" opacity="0.6" />
+                <line x1="70" y1="65" x2="80" y2="65" stroke="white" stroke-width="1.5" opacity="0.6" />
+                <circle cx="42" cy="65" r="1.5" fill="white" opacity="0.6" />
+                <circle cx="78" cy="65" r="1.5" fill="white" opacity="0.6" />
+
+                <!-- Initials -->
+                <text x="60" y="95" text-anchor="middle" fill="white" font-family="Playfair Display, serif"
+                    font-size="16" font-weight="bold"></text>
+            </svg>
         </div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Academic Portfolio...</div>
+        <div class="loading-progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Professional Navigation -->
+    <nav class="navbar"></nav>
+    <div class="nav-container">
+        <div class="nav-brand">
+            <svg width="40" height="40" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"
+                style="margin-right: 10px;">
+                <!-- Outer Circle -->
+                <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3" />
+
+                <!-- Academic Cap -->
+                <path
+                    d="M30 45 L60 35 L90 45 L90 55 L85 57 L85 70 C85 75 75 80 60 80 C45 80 35 75 35 70 L35 57 L30 55 Z"
+                    fill="currentColor" opacity="0.8" />
+
+                <!-- Cap Tassel -->
+                <circle cx="85" cy="57" r="3" fill="currentColor" />
+                <line x1="85" y1="60" x2="88" y2="68" stroke="currentColor" stroke-width="2" />
+                <circle cx="88" cy="68" r="2" fill="currentColor" />
+
+                <!-- Brain/AI Symbol -->
+                <path d="M45 50 Q50 45 55 50 Q60 45 65 50 Q70 55 65 60 Q60 65 55 60 Q50 65 45 60 Q40 55 45 50"
+                    fill="none" stroke="currentColor" stroke-width="2" opacity="0.6" />
+
+                <!-- Circuit Lines -->
+                <line x1="40" y1="65" x2="50" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+                <line x1="70" y1="65" x2="80" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+                <circle cx="42" cy="65" r="1.5" fill="currentColor" opacity="0.4" />
+                <circle cx="78" cy="65" r="1.5" fill="currentColor" opacity="0.4" />
+            </svg>
+
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#research" class="nav-link">Research</a></li>
+            <li><a href="#publications" class="nav-link">Publications</a></li>
+            <li><a href="#patents" class="nav-link">Patents</a></li>
+            <li><a href="#events" class="nav-link">Events</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     </nav>
 
     <!-- Hero Section -->
@@ -48,8 +259,8 @@
                     <h1 class="hero-title animate-fade-in" style="animation-delay: 0.2s;">Dr. Ihtiram Raza Khan</h1>
                     <p class="hero-subtitle animate-slide-in" style="animation-delay: 0.4s;">PhD in Computer Science</p>
                     <p class="hero-description animate-fade-in" style="animation-delay: 0.6s;">
-                        Distinguished Assistant Professor with 26+ years of academic excellence in Machine Learning, 
-                        Big Data Analytics, and Software Engineering. Leading innovative research in AI-driven 
+                        Distinguished Assistant Professor with 26+ years of academic excellence in Machine Learning,
+                        Big Data Analytics, and Software Engineering. Leading innovative research in AI-driven
                         healthcare solutions and cybersecurity frameworks.
                     </p>
                     <div class="hero-stats">
@@ -58,12 +269,20 @@
                             <span class="stat-label">Years Experience</span>
                         </div>
                         <div class="stat-item animate-fade-in" style="animation-delay: 1.0s;">
-                            <span class="stat-number">50+</span>
+                            <span class="stat-number">195+</span>
                             <span class="stat-label">Publications</span>
                         </div>
                         <div class="stat-item animate-fade-in" style="animation-delay: 1.2s;">
-                            <span class="stat-number">15+</span>
+                            <span class="stat-number">62+</span>
                             <span class="stat-label">Patents</span>
+                        </div>
+                        <div class="stat-item animate-fade-in" style="animation-delay: 1.4s;">
+                            <span class="stat-number">26+</span>
+                            <span class="stat-label">Books</span>
+                        </div>
+                        <div class="stat-item animate-fade-in" style="animation-delay: 1.6s;">
+                            <span class="stat-number">275+</span>
+                            <span class="stat-label">Invited Talks</span>
                         </div>
                     </div>
                     <div class="hero-buttons">
@@ -348,7 +567,7 @@
                     </div>
                     <div class="stat-content">
                         <h4>50+</h4>
-                        <p>Research Collaborations</p>
+                        <p>Invited Talks</p>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -830,6 +1049,72 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <svg width="60" height="60" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Outer Circle -->
+                        <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="2"
+                            opacity="0.3" />
+
+                        <!-- Academic Cap -->
+                        <path
+                            d="M30 45 L60 35 L90 45 L90 55 L85 57 L85 70 C85 75 75 80 60 80 C45 80 35 75 35 70 L35 57 L30 55 Z"
+                            fill="currentColor" opacity="0.8" />
+
+                        <!-- Cap Tassel -->
+                        <circle cx="85" cy="57" r="3" fill="currentColor" />
+                        <line x1="85" y1="60" x2="88" y2="68" stroke="currentColor" stroke-width="2" />
+                        <circle cx="88" cy="68" r="2" fill="currentColor" />
+
+                        <!-- Brain/AI Symbol -->
+                        <path d="M45 50 Q50 45 55 50 Q60 45 65 50 Q70 55 65 60 Q60 65 55 60 Q50 65 45 60 Q40 55 45 50"
+                            fill="none" stroke="currentColor" stroke-width="2" opacity="0.6" />
+
+                        <!-- Circuit Lines -->
+                        <line x1="40" y1="65" x2="50" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+                        <line x1="70" y1="65" x2="80" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+                        <circle cx="42" cy="65" r="1.5" fill="currentColor" opacity="0.4" />
+                        <circle cx="78" cy="65" r="1.5" fill="currentColor" opacity="0.4" />
+
+                        <!-- Initials -->
+                        <text x="60" y="95" text-anchor="middle" fill="currentColor"
+                            font-family="Playfair Display, serif" font-size="16" font-weight="bold">IRK</text>
+                    </svg>
+                    <div class="footer-text">
+                        <h3>Dr. Ihtiram Raza Khan</h3>
+                        <p>PhD in Computer Science</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#research">Research</a></li>
+                            <li><a href="#publications">Publications</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Contact Info</h4>
+                        <ul>
+                            <li><i class="fas fa-envelope"></i> erkhan2007@gmail.com</li>
+                            <li><i class="fas fa-phone"></i> +91 9810199192</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Ghaziabad, UP, India</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Dr. Ihtiram Raza Khan. All rights reserved.</p>
+                <p>Academic Portfolio - Excellence in Research & Innovation</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

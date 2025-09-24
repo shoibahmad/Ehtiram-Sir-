@@ -1,5 +1,46 @@
 // ===== ACADEMIC PORTFOLIO INTERACTIVE FEATURES =====
 
+// ===== LOADING SCREEN =====
+function initializeLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingText = loadingScreen?.querySelector('.loading-text');
+    
+    const loadingSteps = [
+        'Initializing Academic Portfolio...',
+        'Loading Research Data...',
+        'Preparing Publications...',
+        'Setting up Interactive Features...',
+        'Almost Ready...'
+    ];
+    
+    let currentStep = 0;
+    
+    // Update loading text every 500ms
+    const textInterval = setInterval(() => {
+        if (loadingText && currentStep < loadingSteps.length) {
+            loadingText.textContent = loadingSteps[currentStep];
+            currentStep++;
+        }
+    }, 500);
+    
+    // Complete loading after 2.5 seconds
+    setTimeout(() => {
+        clearInterval(textInterval);
+        
+        if (loadingScreen) {
+            loadingScreen.classList.add('fade-out');
+            
+            // Remove loading screen from DOM after fade out
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 800);
+        }
+    }, 2500);
+}
+
+// Initialize loading screen immediately
+initializeLoadingScreen();
+
 // Ensure DOM is fully loaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializePortfolio);
