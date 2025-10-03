@@ -11,6 +11,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         .loading-screen {
             position: fixed;
@@ -314,7 +316,6 @@
                 <li><a href="#research" class="nav-link">Research</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
                 <li><a href="#patents" class="nav-link">Patents</a></li>
-                <li><a href="#events" class="nav-link">Events</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -370,6 +371,10 @@
                             <i class="fas fa-microscope"></i>
                             View Research
                         </a>
+                        <button id="upcomingEventsBtn" class="btn btn-outline">
+                            <i class="fas fa-calendar-alt"></i>
+                            Upcoming Events
+                        </button>
                         <a href="#contact" class="btn btn-secondary">
                             <i class="fas fa-envelope"></i>
                             Contact Me
@@ -676,6 +681,10 @@
                 <button class="filter-btn" data-filter="2023">2023</button>
                 <button class="filter-btn" data-filter="2022">2022</button>
                 <button class="filter-btn" data-filter="2021">2021</button>
+                <button class="filter-btn" data-filter="2020">2020</button>
+                <button class="filter-btn" data-filter="journal">Journals</button>
+                <button class="filter-btn" data-filter="conference">Conferences</button>
+                <button class="filter-btn" data-filter="book chapter">Book Chapters</button>
             </div>
             <div class="publications-grid" id="publications-grid">
                 <!-- 2024 Publications -->
@@ -868,6 +877,14 @@
                 <h2 class="section-title">Patents & Innovations</h2>
                 <p class="section-subtitle">Intellectual Property & Technical Innovations</p>
             </div>
+            <div class="patents-filter">
+                <button class="filter-btn active" data-filter="all">All Patents</button>
+                <button class="filter-btn" data-filter="healthcare">Healthcare AI</button>
+                <button class="filter-btn" data-filter="blockchain">Blockchain & Security</button>
+                <button class="filter-btn" data-filter="iot">IoT Systems</button>
+                <button class="filter-btn" data-filter="smart">Smart Cities</button>
+                <button class="filter-btn" data-filter="ai">AI & ML</button>
+            </div>
             <div class="patents-grid" id="patents-grid">
                 <div class="patent-card" data-aos="slide-up" data-aos-delay="100">
                     <div class="patent-icon">
@@ -1034,25 +1051,6 @@
         </div>
     </section>
 
-    <!-- Events Section -->
-    <section id="events" class="events-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Events & Conferences</h2>
-                <p class="section-subtitle">Academic Events & Professional Engagements</p>
-            </div>
-            <div class="events-grid" id="events-grid">
-                <!-- Events will be populated by JavaScript -->
-            </div>
-            <div class="load-more-container">
-                <button class="btn btn-outline" id="load-more-events">
-                    <i class="fas fa-plus"></i>
-                    Show More Events
-                </button>
-            </div>
-        </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
@@ -1195,6 +1193,30 @@
             </div>
         </div>
     </footer>
+
+    <!-- Upcoming Events Modal -->
+    <div id="eventsModal" class="events-modal">
+        <div class="modal-overlay" onclick="closeEventsModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-alt"></i> Upcoming Events</h2>
+                <button class="modal-close" onclick="closeEventsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="upcomingEventsList" class="events-list">
+                    <!-- Events will be populated here -->
+                </div>
+                <div class="modal-actions">
+                    <a href="admin.html" class="btn btn-secondary" target="_blank">
+                        <i class="fas fa-cog"></i>
+                        Admin Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
